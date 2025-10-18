@@ -29,7 +29,9 @@ namespace AutoHeal
         }
         private void UpdateTicked(object? sender, StardewModdingAPI.Events.UpdateTickedEventArgs e)
         {
-            if (Game1.player.health == Game1.player.maxHealth) return;
+            int maxHealth = Game1.player.maxHealth;
+            int health = Game1.player.health;
+            if (health == maxHealth) return;
             if (!Context.IsWorldReady) return;
             float healPerSecond = Helper.ReadConfig<ModConfig>().HealthHealPerSecond;
             float healPerTicked = healPerSecond / 60f;
@@ -38,7 +40,7 @@ namespace AutoHeal
                 return;
             int healInThisTicked = decimal_ / 1000;
             decimal_ %= 1000;
-            Game1.player.health += healInThisTicked;
+            Game1.player.health = Math.Min(health + healInThisTicked, maxHealth);
         }
     }
 }
