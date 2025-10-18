@@ -1,0 +1,9 @@
+{
+  "Name": "AutoHeal",
+  "Author": "CongcongCai",
+  "Version": "1.0.0",
+  "Description": "",
+  "UniqueID": "CongcongCai.AutoHeal",
+  "EntryDll": "AutoHeal.dll",
+  "MinimumApiVersion": "4.0.0"
+}
