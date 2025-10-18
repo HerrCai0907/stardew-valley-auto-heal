@@ -5,7 +5,7 @@ namespace AutoHeal
 {
     public class ModEntry : Mod
     {
-        readonly ModConfig Config = new();
+        ModConfig Config = new();
         int decimal_ = 0;
         public override void Entry(IModHelper helper)
         {
@@ -18,9 +18,11 @@ namespace AutoHeal
             var api = Helper.ModRegistry.GetApi<IGenericModConfigMenuAPI>("spacechase0.GenericModConfigMenu");
             if (api == null)
             {
-                this.Monitor.Log("Generic Mod Config Menu not installed. No integration needed", LogLevel.Info);
+                this.Monitor.Log("Generic Mod Config Menu not installed", LogLevel.Info);
                 return;
             }
+            this.Monitor.Log("register to GMCM menu", LogLevel.Info);
+            api.RegisterModConfig(this.ModManifest, () => this.Config = new ModConfig(), () => Helper.WriteConfig(this.Config));
             api.RegisterSimpleOption(this.ModManifest, "每秒恢复的血量", "自动回血的速度，0表示关闭该功能",
                  () => this.Config.HealthHealPerSecond, val => this.Config.HealthHealPerSecond = val);
 
